@@ -2,78 +2,49 @@ import React from "react";
 import { View, Pressable, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-export default function Footer({ navigation }: any) {
+const GOLD = "#FCA311";
+const BG = "#0D1B2A";
+const ACTIVE_BG = "#FCA311";
+const ACTIVE_ICON = "#0D1B2A";
+const INACTIVE_ICON = "#FCA311";
+
+const tabs = [
+  { name: "index", icon: "home" },
+  { name: "camera", icon: "camera" },
+  { name: "indoor", icon: "building" },
+  { name: "exterior", icon: "map" },
+  { name: "audiobooks", icon: "headphones" },
+  { name: "profile", icon: "user" },
+  { name: "ask-a-friend-web", icon: "comments" },
+  { name: "places", icon: "map-marker" },
+];
+
+export default function Footer({ navigation, state }: any) {
+  const currentRoute = state?.routes?.[state.index]?.name;
+
   return (
     <View style={styles.footWrap}>
       <View style={styles.bottomBar}>
-        <Pressable
-          style={styles.bottomItem}
-          onPress={() => navigation.navigate("index")}
-        >
-          <Icon name="home" size={30} color="#FCA311" />
-        </Pressable>
+        {tabs.map((tab, index) => {
+          const isActive = currentRoute === tab.name;
 
-        <View style={styles.divider} />
+          return (
+            <React.Fragment key={tab.name}>
+              <Pressable
+                onPress={() => navigation.navigate(tab.name)}
+                style={[styles.bottomItem, isActive && styles.activeBottomItem]}
+              >
+                <Icon
+                  name={tab.icon}
+                  size={20}
+                  color={isActive ? ACTIVE_ICON : INACTIVE_ICON}
+                />
+              </Pressable>
 
-        <Pressable
-          style={styles.bottomItem}
-          onPress={() => navigation.navigate("camera")}
-        >
-          <Icon name="camera" size={30} color="#FCA311" />
-        </Pressable>
-
-        <View style={styles.divider} />
-
-        <Pressable
-          style={styles.bottomItem}
-          onPress={() => navigation.navigate("indoor")}
-        >
-          <Icon name="building" size={30} color="#FCA311" />
-        </Pressable>
-
-        <View style={styles.divider} />
-
-        <Pressable
-          style={styles.bottomItem}
-          onPress={() => navigation.navigate("exterior")}
-        >
-          <Icon name="road" size={30} color="#FCA311" />
-        </Pressable>
-
-        <View style={styles.divider} />
-
-        <Pressable
-          style={styles.bottomItem}
-          onPress={() => navigation.navigate("audiobooks")}
-        >
-          <Icon name="book" size={30} color="#FCA311" />
-        </Pressable>
-
-        <View style={styles.divider} />
-
-        <Pressable
-          style={styles.bottomItem}
-          onPress={() => navigation.navigate("profile")}
-        >
-          <Icon name="user-circle" size={30} color="#FCA311" />
-        </Pressable>
-        <View style={styles.divider} />
-
-        <Pressable
-          style={styles.bottomItem}
-          onPress={() => navigation.navigate("ask-a-friend-web")}
-        >
-          <Icon name="question-circle" size={30} color="#FCA311" />
-        </Pressable>
-
-        <View style={styles.divider} />
-
-        <Pressable
-          style={styles.bottomItem}
-          onPress={() => navigation.navigate("places")}
-        >
-          <Icon name="map" size={30} color="#FCA311" />
-        </Pressable>
+              {index !== tabs.length - 1 && <View style={styles.divider} />}
+            </React.Fragment>
+          );
+        })}
       </View>
     </View>
   );
@@ -85,18 +56,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingBottom: 0,
     marginTop: 0,
-    backgroundColor: "#0D1B2A",
+    backgroundColor: BG,
   },
   bottomBar: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    backgroundColor: "#0D1B2A",
-    borderColor: "#FCA311",
+    backgroundColor: BG,
+    borderColor: GOLD,
     borderRadius: 999,
     borderWidth: 2,
-    paddingVertical: 22,
-    paddingHorizontal: 14,
+    paddingVertical: 16,
+    paddingHorizontal: 10,
     overflow: "hidden",
     marginBottom: 20,
     marginTop: 20,
@@ -105,12 +76,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 7,
+    paddingVertical: 10,
+    borderRadius: 999,
+  },
+  activeBottomItem: {
+    backgroundColor: ACTIVE_BG,
   },
   divider: {
     width: 2,
     height: "60%",
-    backgroundColor: "#FCA311",
+    backgroundColor: GOLD,
     opacity: 0.8,
   },
 });
