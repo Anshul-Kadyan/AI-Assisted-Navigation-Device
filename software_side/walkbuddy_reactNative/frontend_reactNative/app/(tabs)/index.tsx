@@ -1,4 +1,4 @@
-// app/(tabs)/home.tsx
+// app/(tabs)/index.tsx
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "expo-router";
 import {
@@ -61,10 +61,8 @@ export default function HomePage() {
       setLoading(false);
       return;
     }
-
     setLoading(true);
     setRev((x) => x + 1);
-
     const t = setTimeout(() => setLoading(false), 800);
     return () => clearTimeout(t);
   }, [visionPreviewOn]);
@@ -96,10 +94,13 @@ export default function HomePage() {
           showLocation
         />
 
-        <View style={styles.mainArea}>
+        <ScrollView
+          style={styles.mainArea}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
           <BounceButton label="SEARCH" onPress={goToNavigate} search />
 
-          <BounceButton label="SEARCH" onPress={goToNavigate} search />
           <View style={styles.grid}>
             <ActionTile
               icon="microphone"
@@ -111,7 +112,6 @@ export default function HomePage() {
               label="PLACES"
               onPress={goToSavedPlaces}
             />
-
             <ActionTile
               icon="exclamation-triangle"
               label="EMERGENCY"
@@ -126,7 +126,6 @@ export default function HomePage() {
 
           <View style={styles.visionRow}>
             <Text style={styles.visionTitle}>VISION ASSIST</Text>
-
             <View style={styles.visionToggle}>
               <Text style={styles.visionToggleText}>
                 {visionEnabled ? "On" : "Off"}
@@ -291,12 +290,7 @@ function ActionTile({
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
       >
-        <Animated.View
-          style={[
-            styles.tileOuter,
-            { transform: [{ scale }] },
-          ]}
-        >
+        <Animated.View style={[styles.tileOuter, { transform: [{ scale }] }]}>
           <View style={styles.tileInner}>
             <Animated.View
               pointerEvents="none"
@@ -331,28 +325,23 @@ const styles = StyleSheet.create({
     backgroundColor: tokens.bg,
     alignItems: "center",
   },
-
   content: {
     flex: 1,
     paddingHorizontal: 12,
     paddingTop: 8,
   },
-
   mainArea: {
     flex: 1,
     width: "100%",
     paddingTop: 10,
   },
-
   scrollContent: {
     paddingBottom: 120,
   },
-
   statusCard: {
     width: "100%",
     marginBottom: 18,
   },
-
   statusTitle: {
     color: tokens.muted,
     fontSize: 12,
@@ -360,31 +349,26 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     marginBottom: 4,
   },
-
   statusText: {
     color: tokens.text,
     fontSize: 13,
     fontWeight: "700",
     marginBottom: 2,
   },
-
   statusSub: {
     color: tokens.muted,
     fontSize: 12,
     fontWeight: "700",
     marginBottom: 8,
   },
-
   startButton: {
     marginTop: 4,
   },
-
   startButtonText: {
     color: tokens.text,
     fontSize: 13,
     fontWeight: "800",
   },
-
   searchButton: {
     width: "100%",
     backgroundColor: "#12314a",
@@ -396,59 +380,49 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 20,
     overflow: "hidden",
-
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.18,
     shadowRadius: 6,
     elevation: 4,
   },
-
   searchPressOverlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: "rgba(255,255,255,0.10)",
   },
-
   searchText: {
     color: tokens.text,
     fontSize: 18,
     fontWeight: "900",
     letterSpacing: 0.8,
   },
-
   grid: {
     width: "100%",
     flexDirection: "row",
     flexWrap: "wrap",
     marginBottom: 22,
   },
-
   tile: {
     width: "50%",
     padding: 10,
   },
-
   tileCentered: {
     width: "50%",
   },
-
   centerRow: {
     width: "100%",
     alignItems: "center",
   },
-
   tileOuter: {
     borderWidth: 2,
     borderColor: tokens.gold,
     borderRadius: 22,
-
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.18,
     shadowRadius: 6,
     elevation: 4,
   },
-
   tileInner: {
     width: "100%",
     backgroundColor: tokens.gold,
@@ -460,16 +434,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     overflow: "hidden",
   },
-
   tilePressOverlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: "rgba(0,0,0,0.08)",
   },
-
   tileIcon: {
     marginBottom: 10,
   },
-
   tileText: {
     color: "#071a2a",
     fontSize: 15,
@@ -477,7 +448,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     letterSpacing: 0.3,
   },
-
   visionRow: {
     width: "100%",
     flexDirection: "row",
@@ -485,26 +455,22 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 10,
   },
-
   visionTitle: {
     color: tokens.text,
     fontSize: 15,
     fontWeight: "900",
     letterSpacing: 0.5,
   },
-
   visionToggle: {
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
   },
-
   visionToggleText: {
     color: tokens.muted,
     fontSize: 12,
     fontWeight: "800",
   },
-
   visionCard: {
     width: "100%",
     minHeight: 220,
@@ -514,18 +480,15 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     padding: 14,
     marginBottom: 6,
-
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 6,
     elevation: 4,
   },
-
   visionCardDisabled: {
     opacity: 0.5,
   },
-
   visionInner: {
     minHeight: 190,
     borderWidth: 2,
@@ -534,7 +497,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     backgroundColor: "#0a121a",
   },
-
   previewPlaceholder: {
     minHeight: 190,
     alignItems: "center",
@@ -542,7 +504,6 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingHorizontal: 16,
   },
-
   previewText: {
     color: tokens.text,
     fontSize: 15,
@@ -550,7 +511,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     letterSpacing: 0.6,
   },
-
   previewSubtext: {
     color: tokens.muted,
     fontSize: 12,
