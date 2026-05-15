@@ -124,7 +124,7 @@ export default function SectionScreen() {
         >
           <MaterialIcons name="photo-camera" size={28} color={GOLD} />
         </Pressable>
-        <Pressable style={styles.bottomCell} onPress={() => router.push("/account")}>
+        <Pressable style={styles.bottomCell} onPress={() => router.push("/profile")}>
           <MaterialIcons name="account-circle" size={28} color={GOLD} />
         </Pressable>
       </View>

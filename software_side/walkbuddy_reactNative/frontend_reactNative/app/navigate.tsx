@@ -76,7 +76,7 @@ export default function NavigateScreen() {
           <Ionicons name="camera-outline" size={26} color={GOLD} />
         </Pressable>
         <View style={styles.bottomDivider} />
-        <Pressable style={styles.bottomItem} onPress={() => router.push('/account')}>
+        <Pressable style={styles.bottomItem} onPress={() => router.push('/profile')}>
           <View style={styles.accountBadge}>
             <MaterialIcons name="person" size={20} color="#1B263B" />
             <Text style={styles.accountText}>My{'\n'}Account</Text>

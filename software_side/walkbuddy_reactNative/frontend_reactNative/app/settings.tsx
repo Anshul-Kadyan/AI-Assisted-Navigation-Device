@@ -2,6 +2,7 @@
 import React, { useMemo } from "react";
 import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
 
 import HomeHeader from "./HomeHeader";
 import Footer from "./Footer";
@@ -16,6 +17,7 @@ const tokens = {
 
 export default function SettingsPage() {
   const { width } = useWindowDimensions();
+  const navigation = useNavigation();
 
   const contentWidth = useMemo(() => {
     const padding = 24;
@@ -27,7 +29,7 @@ export default function SettingsPage() {
     <SafeAreaView style={styles.screen} edges={["top"]}>
       <View style={[styles.content, { width: contentWidth }]}>
         <HomeHeader
-          title="Settings"
+          appTitle="Settings"
           showDivider
           showLocation={true}
         />
@@ -43,7 +45,7 @@ export default function SettingsPage() {
           </Text>
         </View>
 
-        <Footer />
+        <Footer navigation={navigation} />
       </View>
     </SafeAreaView>
   );
